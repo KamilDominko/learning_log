@@ -5,7 +5,10 @@ from .forms import TopicForm, EntryForm
 from django.http import HttpResponseRedirect, Http404
 
 
-# Create your views here.
+def check_topic_owner(topic, request):
+    if topic.owner != request.user:
+        raise Http404
+
 
 def index(request):
     """Strona główna dla aplikacji Learning Log."""
@@ -26,8 +29,8 @@ def topic(request, topic_id):
     """Wyświetla pojedynczy temat i wszystkie powiązane z nim wpisy."""
     topic = Topic.objects.get(id=topic_id)
     # Upewniamy się, że temat należy do bieżącego użytkownika.
-    if topic.owner != request.user:
-        raise Http404
+    check_topic_owner(topic, request)
+
     entries = topic.entry_set.order_by('-date_added')
     context = {'topic': topic, 'entries': entries}
     return render(request, 'learning_logs/topic.html', context)
@@ -57,6 +60,7 @@ def new_topic(request):
 def new_entry(request, topic_id):
     """Dodawanie nowego wpisu dla określonego tematu."""
     topic = Topic.objects.get(id=topic_id)
+    check_topic_owner(topic, request)
 
     if request.method != 'POST':
         # Nie przekazano żadnych danych, należy utworzyć pusty formularz.
@@ -80,8 +84,7 @@ def edit_entry(request, entry_id):
     """Edycja istniejącego wpisu."""
     entry = Entry.objects.get(id=entry_id)
     topic = entry.topic
-    if topic.owner != request.user:
-        raise Http404
+    check_topic_owner(topic, request)
 
     if request.method != 'POST':
         # Żądanie początkowe, wypełnienie formularza aktualną treścią wpisu.
