@@ -20,6 +20,6 @@
 <hr/>
 <form action="{% url 'users:logout' %}" method='post'>
     {% csrf_token %}
-    <button name='submit'>Log out</button>
+    <button name='submit'>Wyloguj</button>
 </form>
 {% endif %}
