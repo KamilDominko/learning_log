@@ -32,9 +32,6 @@
                 <span class="navbar-text">Witaj, {{ user.username }} </span>
                 <span style="margin-right: 10px;"></span>
             </li>
-            <!--            <li class="nav-item">-->
-            <!--                <a class="nav-link" href="{% url 'users:logout' %}">Wyloguj</a>-->
-            <!--            </li>-->
             {% else %}
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'users:register' %}">
@@ -45,7 +42,6 @@
             </li>
             {% endif %}
         </ul>
-
         {% if user.is_authenticated %}
         <form action="{% url 'users:logout' %}" method='post'>
             {% csrf_token %}
