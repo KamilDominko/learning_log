@@ -42,11 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
-# Moje ustawienia.
-LOGIN_URL = 'users:login'
-# Ustawienia Heroku.
-import django_heroku
-django_heroku.settings(locals())
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -126,3 +122,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Moje ustawienia.
+LOGIN_URL = 'users:login'
+# Ustawienia Heroku.
+import django_heroku
+django_heroku.settings(locals())

@@ -1,5 +1,5 @@
 # Moje.
-ll_env
+ll_env/
 __pycache__/
 *.sqlite3
 
