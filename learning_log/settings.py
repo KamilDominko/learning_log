@@ -42,8 +42,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
-
+# Moje ustawienia.
 LOGIN_URL = 'users:login'
+# Ustawienia Heroku.
+import django_heroku
+django_heroku.settings(locals())
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
